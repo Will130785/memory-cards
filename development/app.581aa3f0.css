@@ -62,6 +62,12 @@ body {
   height: 5rem;
   width: 5rem;
 }
+@media only screen and (max-width: 400px) {
+  .icon {
+    height: 3rem;
+    width: 3rem;
+  }
+}
 
 .card-container {
   position: relative;
@@ -139,6 +145,12 @@ body {
   .game-container {
     grid-template-columns: repeat(4, 10rem);
     grid-template-rows: repeat(4, 10rem);
+  }
+}
+@media only screen and (max-width: 400px) {
+  .game-container {
+    grid-template-columns: repeat(4, 7rem);
+    grid-template-rows: repeat(4, 7rem);
   }
 }
 
