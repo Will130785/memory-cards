@@ -189,13 +189,228 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../src/app.js":[function(require,module,exports) {
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../src/img/battery.png":[function(require,module,exports) {
+module.exports = "/battery.bc6b65f7.png";
+},{}],"../src/img/camera.png":[function(require,module,exports) {
+module.exports = "/camera.e7eaaa7b.png";
+},{}],"../src/img/cloud.png":[function(require,module,exports) {
+module.exports = "/cloud.250512ee.png";
+},{}],"../src/img/compass.png":[function(require,module,exports) {
+module.exports = "/compass.41bb0081.png";
+},{}],"../src/img/heart.png":[function(require,module,exports) {
+module.exports = "/heart.729fe681.png";
+},{}],"../src/img/phone.png":[function(require,module,exports) {
+module.exports = "/phone.c5fdd1d9.png";
+},{}],"../src/img/star.png":[function(require,module,exports) {
+module.exports = "/star.c40f9a8d.png";
+},{}],"../src/img/television.png":[function(require,module,exports) {
+module.exports = "/television.1b4d6da2.png";
+},{}],"../src/app.js":[function(require,module,exports) {
 "use strict";
 
 require("./scss/main.scss");
 
-console.log("This is working");
-},{"./scss/main.scss":"../src/scss/main.scss"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+var _battery = _interopRequireDefault(require("./img/battery.png"));
+
+var _camera = _interopRequireDefault(require("./img/camera.png"));
+
+var _cloud = _interopRequireDefault(require("./img/cloud.png"));
+
+var _compass = _interopRequireDefault(require("./img/compass.png"));
+
+var _heart = _interopRequireDefault(require("./img/heart.png"));
+
+var _phone = _interopRequireDefault(require("./img/phone.png"));
+
+var _star = _interopRequireDefault(require("./img/star.png"));
+
+var _television = _interopRequireDefault(require("./img/television.png"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//UI variables
+var startBtn = document.querySelector(".start");
+var cards = document.querySelectorAll(".card-container");
+var cardBox = document.querySelectorAll(".card");
+var moveDisplay = document.querySelector(".move-display");
+var minDisplay = document.querySelector(".mins");
+var secDisplay = document.querySelector(".secs");
+var statusDisplay = document.querySelector(".status"); //Gameplay variables
+
+var cardDeck = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8];
+var compare = [];
+var matchTracker = 0;
+var moves = 0;
+var gameActive = 0; //Timer variables
+
+var secs = 0;
+var mins = 0;
+var clock; //Function to shuffle cards
+
+var shuffle = function shuffle(array) {
+  var currentIndex = array.length,
+      temporaryValue,
+      randomIndex;
+
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}; //Timer function
+
+
+var timer = function timer() {
+  clock = setInterval(function () {
+    //Check if seconds are equal to 50 and set to -1
+    if (secs === 59) {
+      secs = -1; // Next increment will display as 0
+      //Add to minutes
+
+      mins++;
+    } //add to seconds and display in UI
+
+
+    secs++;
+    secDisplay.innerHTML = secs;
+    minDisplay.innerHTML = mins;
+  }, 1000);
+}; //Start button event listener
+
+
+startBtn.addEventListener("click", function (e) {
+  //Shuffle cards and reset all game UI's
+  var deck = shuffle(cardDeck);
+  gameActive = 1;
+  compare = [];
+  matchTracker = 0;
+  moves = 0;
+  secs = 0;
+  mins = 0;
+  secDisplay.innerHTML = secs;
+  minDisplay.innerHTML = mins;
+  statusDisplay.textContent = "Game commenced!!";
+  moveDisplay.innerHTML = moves;
+  clearInterval(clock);
+  timer(); //Loop through card container and apply styles
+
+  cardBox.forEach(function (card, index) {
+    card.style.backgroundColor = "#2e3d49";
+    card.style.visibility = "visible";
+    card.style.boxShadow = "0 .2rem .2rem .2rem rgba(0, 0, 0, .5)";
+  }); //Loop through inner card and apply styles and images
+
+  cards.forEach(function (card, index) {
+    card.style.display = "flex";
+    card.style.opacity = "0"; //Declare html variable
+
+    var html; //Test which deck index is assigned to each card
+
+    if (deck[index] === 1) {
+      html = "\n            <img class=\"icon\" src=\"".concat(_battery.default, "\">\n            <span class=\"card-id\">1</span>\n            ");
+    } else if (deck[index] === 2) {
+      html = "\n            <img class=\"icon\" src=\"".concat(_camera.default, "\">\n            <span class=\"card-id\">2</span>\n             ");
+    } else if (deck[index] === 3) {
+      html = "\n            <img class=\"icon\" src=\"".concat(_cloud.default, "\">\n            <span class=\"card-id\">3</span>\n             ");
+    } else if (deck[index] === 4) {
+      html = "\n            <img class=\"icon\" src=\"".concat(_compass.default, "\">\n            <span class=\"card-id\">4</span>\n             ");
+    } else if (deck[index] === 5) {
+      html = "\n            <img class=\"icon\" src=\"".concat(_heart.default, "\">\n            <span class=\"card-id\">5</span>\n             ");
+    } else if (deck[index] === 6) {
+      html = "\n            <img class=\"icon\" src=\"".concat(_phone.default, "\">\n            <span class=\"card-id\">6</span>\n             ");
+    } else if (deck[index] === 7) {
+      html = "\n            <img class=\"icon\" src=\"".concat(_star.default, "\">\n            <span class=\"card-id\">7</span>\n             ");
+    } else if (deck[index] === 8) {
+      html = "\n            <img class=\"icon\" src=\"".concat(_television.default, "\">\n            <span class=\"card-id\">8</span>\n             ");
+    }
+
+    ; //Apply html to card
+
+    card.innerHTML = html;
+  });
+}); //Event listener for cards
+
+cards.forEach(function (card, index) {
+  card.addEventListener("click", function (e) {
+    //Check game is active
+    if (gameActive === 1) {
+      //Chaeck all cards have not been matched
+      if (matchTracker < 8) {
+        //Create card object and take card number and index number from selected card
+        var cardObj = {
+          card: card.textContent.trim(),
+          id: index
+        }; //Push card object to comparrison array
+
+        compare.push(cardObj);
+        card.style.opacity = "1"; //Test to see if there has been a match
+
+        if (compare.length === 2 && compare[0].card === compare[1].card) {
+          //If user clicks same card, alert that they can not do this and pop the card off the compare array
+          if (compare[0].id === compare[1].id) {
+            statusDisplay.innerHTML = "You can't pick the same card twice";
+            compare.pop();
+          } else {
+            //If match
+            //Alert that there has been a match
+            statusDisplay.innerHTML = "You matched a pair!!"; //Set time to hide cards
+
+            setTimeout(function () {
+              //Hide the matched cards
+              cards[compare[0].id].style.display = "none";
+              cards[compare[1].id].style.display = "none";
+              cardBox[compare[0].id].style.backgroundColor = "none";
+              cardBox[compare[1].id].style.backgroundColor = "none";
+              cardBox[compare[0].id].style.background = "none";
+              cardBox[compare[1].id].style.background = "none";
+              cardBox[compare[0].id].style.boxShadow = "none";
+              cardBox[compare[1].id].style.boxShadow = "none";
+              cardBox[compare[0].id].style.visibility = "hidden";
+              cardBox[compare[1].id].style.visibility = "hidden"; //Set compare array back to empty
+
+              compare = [];
+            }, 1000); //Add one to the matchTracker
+
+            matchTracker += 1; //Add one to the moveTracker
+
+            moves += 1; //Check if all matches have been found
+
+            if (matchTracker === 8) {
+              statusDisplay.innerHTML = "All matches found, you won in ".concat(mins, " minute ").concat(secs, " seconds and in ").concat(moves, " moves"); //Stop clock
+
+              clearInterval(clock); //Change game to inactive
+
+              gameActive = 0;
+            }
+          }
+        } else if (compare.length === 2 && compare[0].card !== compare[1].card) {
+          //If not match
+          //Alert that there has been no match
+          statusDisplay.innerHTML = "No match, try again!!"; //Set time to fade images away
+
+          setTimeout(function () {
+            cards[compare[0].id].style.opacity = "0";
+            cards[compare[1].id].style.opacity = "0"; //Set compare array back to empty
+
+            compare = [];
+          }, 1000); //Add to moves counter
+
+          moves += 1;
+        } //Display moves in UI
+
+
+        moveDisplay.textContent = moves;
+      }
+    } else {
+      statusDisplay.innerHTML = "You need to click start to play!!";
+    }
+  });
+});
+},{"./scss/main.scss":"../src/scss/main.scss","./img/battery.png":"../src/img/battery.png","./img/camera.png":"../src/img/camera.png","./img/cloud.png":"../src/img/cloud.png","./img/compass.png":"../src/img/compass.png","./img/heart.png":"../src/img/heart.png","./img/phone.png":"../src/img/phone.png","./img/star.png":"../src/img/star.png","./img/television.png":"../src/img/television.png"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -223,7 +438,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56834" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62039" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

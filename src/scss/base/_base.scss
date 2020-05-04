@@ -1,0 +1,32 @@
+//GLOBAL RESET
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    //Set root font size
+    font-size: 62.5%; //1rem = 10px
+
+    //Amend root font size for small screen sizes
+    @media only screen and (max-width: 900px) {
+        font-size: 55%;
+    }
+
+    @media only screen and (max-width: 700px) {
+        font-size: 45%;
+    }
+
+    @media only screen and (max-width: 500px) {
+        font-size: 40%;
+    }
+}
+
+body {
+    //Set background gradient
+    font-family: sans-serif;
+    background-color: #FEE140;
+    background-image: linear-gradient(90deg, #FEE140 0%, #FA709A 100%);
+
+}

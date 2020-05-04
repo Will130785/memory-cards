@@ -1,0 +1,46 @@
+//Dashboard styling
+
+.dashboard {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 5rem;
+    padding: 4rem 2rem;
+    background-color: #FEE140;
+    background-image: linear-gradient(90deg, #FEE140 0%, #FA709A 100%); 
+}
+
+.dashboard h1 {
+    font-size: 2rem;
+    color: white;
+}
+
+.start {
+    font-size: 1.5rem;
+    padding: 1rem;
+    outline: none;
+    border: none;
+    border-radius: .5rem;
+    background-color: #FEE140;
+    transition: all .5s;
+    cursor: pointer;
+}
+
+.start:hover {
+    background-color: #FA709A;
+}
+
+.timer {
+    font-size: 1.6rem;
+    color: #FA709A;
+}
+
+.moves {
+    font-size: 1.6rem;
+    color: #FEE140;
+}
+
+.status {
+    font-size: 2rem;
+    text-align: center;
+}
