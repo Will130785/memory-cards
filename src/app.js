@@ -49,20 +49,14 @@ const shuffle = array => {
 
 //Timer function
 const timer = () => {
-    
     clock = setInterval(function() {
-        //Check if seconds are equal to 50 and set to -1
-        if(secs === 59) {
-            secs = -1; // Next increment will display as 0
-            //Add to minutes
-            mins ++;
-
-        }
-        //add to seconds and display in UI
         secs++;
+        if(secs === 60) {
+            secs = 0;
+            mins++;
+        }
         secDisplay.innerHTML = secs;
         minDisplay.innerHTML = mins;
-
     }, 1000);
 };
 
